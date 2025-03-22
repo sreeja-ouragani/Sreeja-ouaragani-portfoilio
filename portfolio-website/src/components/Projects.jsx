@@ -33,19 +33,19 @@ const projects = [
   {
     title: "AI FAQ Generation System",
     description: "An AI-powered FAQ generator for businesses using NLP and ML.",
-    link: "https://github.com/sreeja-ouragani/ai-faq-generator",
+    link: "https://github.com/sreeja-ouragani/FAQ-system",
     bgImage: faq,
   },
   {
     title: "ConvertEase",
     description: "A web app for converting files (images, videos, docs) efficiently.",
-    link: "https://github.com/sreeja-ouragani/convertease",
+    link: "https://github.com/sreeja-ouragani/Convert-Ease",
     bgImage: convertease,
   },
   {
     title: "Number Plate Recognition",
     description: "Automatic vehicle number plate recognition system.",
-    link: "https://github.com/sreeja-ouragani/number-plate-recognition",
+    link: "https://github.com/sreeja-ouragani/number-plate",
     bgImage: numberPlate,
   },
 ];

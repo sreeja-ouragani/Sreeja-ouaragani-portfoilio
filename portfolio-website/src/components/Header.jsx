@@ -1,26 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import "../styles/header.css";
 
-const Header = () => {
+const Header = ({ darkMode, setDarkMode }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("theme") === "dark"
-  );
-
-  useEffect(() => {
-    console.log("Dark mode state:", darkMode); // ✅ Debugging
-
-    // ✅ Apply or remove dark mode class on body
-    if (darkMode) {
-      document.body.classList.add("dark-theme");
-    } else {
-      document.body.classList.remove("dark-theme");
-    }
-
-    // ✅ Save user preference
-    localStorage.setItem("theme", darkMode ? "dark" : "light");
-  }, [darkMode]);
 
   return (
     <header className="header">

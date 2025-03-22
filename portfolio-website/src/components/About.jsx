@@ -24,7 +24,7 @@ const About = () => {
       <p>B.Tech CSE (AI & ML) - Malla Reddy University (2022-2026), CGPA: 8.92 (Till 5th Semester)</p>
 
       <h3>Interests:</h3>
-      <p>AI/ML, Full-Stack Development, AWS Cloud, Competitive Programming</p>
+      <p>AI&ML, Full-Stack Development, AWS Cloud, Competitive Programming</p>
     </div>
   );
 
@@ -87,7 +87,7 @@ const About = () => {
           className="know-more-btn"
           onClick={() => setExpanded(!expanded)}
         >
-          {expanded ? "Show Less" : "Know More"}
+          {expanded ? "Show Less" : "Know More?"}
         </button>
       </div>
     </section>

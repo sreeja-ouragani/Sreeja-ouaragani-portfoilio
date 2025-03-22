@@ -3,6 +3,14 @@
     padding: 50px 20px;
     max-width: 600px;
     margin: auto;
+    opacity: 0; /* Start invisible */
+    transform: translateY(20px); /* Slight movement */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.contact.fade-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .contact h2 {
@@ -50,4 +58,12 @@
     .contact {
         padding: 30px 10px;
     }
+}
+
+/* ✅ Status Message Styling */
+.status-message {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #00796b; /* Dark Cyan */
 }
