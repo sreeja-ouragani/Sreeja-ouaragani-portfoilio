@@ -113,6 +113,35 @@
     animation: blinkCursor 0.8s infinite;
 }
 
+.additional-info ul {
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.additional-info li {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+  font-family: "Montserrat", sans-serif;
+}
+/* ✅ Continuous Animation for Know More Button */
+.know-more-btn.pulse {
+  animation: pulseBtn 1.8s ease-in-out infinite;
+}
+
+/* ✅ Keyframes for Button Pulse */
+@keyframes pulseBtn {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 188, 212, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 3px rgba(0, 188, 212, 0.3);
+  }
+}
+
+
 /* ✅ Cursor Blinking Effect */
 @keyframes blinkCursor {
     50% {
