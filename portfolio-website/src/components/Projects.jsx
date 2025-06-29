@@ -1,81 +1,92 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import "../styles/projects.css";
+import "../styles/projects.css"; // removed Link import since we're not using it
 
-// Import images from assets
-import aiInterview from "../assets/ai-interview.jpg";
-import kiddoklass from "../assets/kiddoklass.jpg";
-import medicine from "../assets/medicine.jpg";
-import faq from "../assets/faq.jpg";
-import convertease from "../assets/convertease.jpg";
-import numberPlate from "../assets/number-plate.jpg";
-
-// Project data with imported images
-const projects = [
+const videoProjects = [
   {
-    title: "AI Interview Preparation",
-    description: "An AI-powered platform that generates interview questions, analyzes responses, and provides feedback.",
-    link: "https://github.com/sreeja-ouragani/ai-interview-platform",
-    bgImage: aiInterview,
+    title: "DailyDevHub",
+    description: "A productivity dashboard for developers.",
+    video: "/videos/dailydevhub.mp4",
+    link: "https://dailydevhub-codeconquer.vercel.app/",
   },
   {
-    title: "Kiddoklass",
-    description: "A full-stack ed-tech platform for online learning.",
-    link: "https://kid-vercel.vercel.app/",
-    bgImage: kiddoklass,
-  },
-  {
-    title: "Medicine Recommendation System",
-    description: "An AI model that suggests medicines based on symptoms.",
-    link: "https://github.com/sreeja-ouragani/medicine_recommendation_system",
-    bgImage: medicine,
-  },
-  {
-    title: "AI FAQ Generation System",
-    description: "An AI-powered FAQ generator for businesses using NLP and ML.",
+    title: "FAQ Generation System",
+    description: "AI-powered FAQ generator using NLP.",
+    video: "",
     link: "https://github.com/sreeja-ouragani/FAQ-system",
-    bgImage: faq,
   },
   {
-    title: "ConvertEase",
-    description: "A web app for converting files (images, videos, docs) efficiently.",
-    link: "https://github.com/sreeja-ouragani/Convert-Ease",
-    bgImage: convertease,
+    title: "Image Segmentation and Captioning",
+    description: "AI system for segmenting and describing images.",
+    video: "/videos/image.mp4",
+    link: "https://github.com/sreeja-ouragani/Image-Segmentation-and-Captioning",
   },
   {
-    title: "Number Plate Recognition",
-    description: "Automatic vehicle number plate recognition system.",
-    link: "https://github.com/sreeja-ouragani/number-plate",
-    bgImage: numberPlate,
+    title: "ToDo Journal App",
+    description: "Replit-based ToDo journaling app.",
+    video: "",
+    link: "https://github.com/sreeja-ouragani/todo-journal-app",
+  },
+  {
+    title: "Gaze Tracking System",
+    description: "Tracks eye gaze using webcam and OpenCV.",
+    video: "",
+    link: "https://github.com/sreeja-ouragani/GazeTracking",
+  },
+  {
+    title: "AI Vision Pro",
+    description: "Eye health and vision estimation tool.",
+    video: "",
+    link: "https://github.com/sreeja-ouragani/AI-VisionMate",
   },
 ];
 
 const Projects = () => {
   const [animationKey, setAnimationKey] = useState(0);
+  const videoRefs = useRef([]);
 
-  // Function to restart animation
-  const restartAnimation = () => {
-    setAnimationKey((prevKey) => prevKey + 1);
-  };
-
-  // Detect URL hash change or user click on header navigation
   useEffect(() => {
     const handleNavigation = () => {
       if (window.location.hash === "#projects") {
-        restartAnimation();
+        setAnimationKey((prevKey) => prevKey + 1);
       }
     };
-
     window.addEventListener("hashchange", handleNavigation);
     return () => window.removeEventListener("hashchange", handleNavigation);
   }, []);
 
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.6,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (entry.isIntersecting && video?.play) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+    }, observerOptions);
+
+    videoRefs.current.forEach((video) => {
+      if (video) observer.observe(video);
+    });
+
+    return () => {
+      videoRefs.current.forEach((video) => {
+        if (video) observer.unobserve(video);
+      });
+    };
+  }, [animationKey]);
+
   return (
-    <section className="projects section" id="projects" onClick={restartAnimation}>
+    <section className="projects section" id="projects">
       <div className="container">
-        {/* Animated Title */}
         <motion.h2
-          key={`title-${animationKey}`} // Unique key to restart animation
+          key={`title-${animationKey}`}
           className="section-title"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -84,26 +95,58 @@ const Projects = () => {
           Projects
         </motion.h2>
 
-        {/* Project Grid */}
         <div className="projects-grid">
-          {projects.map((project, index) => (
+          {videoProjects.map((project, index) => (
             <motion.div
-              key={`card-${animationKey}-${index}`} // Unique key to restart animation
-              className="project-card"
+              key={`card-${animationKey}-${index}`}
+              className="project-video-card"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              style={{ backgroundImage: `url(${project.bgImage})` }}
             >
-              <div className="project-overlay">
+              <div className="video-wrapper">
+                {project.video ? (
+                  <video
+                    className="video-player"
+                    controls
+                    muted
+                    preload="metadata"
+                    poster="/images/video-poster.jpg"
+                    ref={(el) => (videoRefs.current[index] = el)}
+                  >
+                    <source src={project.video} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <div className="video-placeholder">
+                    <p>Video coming soon</p>
+                  </div>
+                )}
+              </div>
+              <div className="project-info">
                 <h3>{project.title}</h3>
                 <p>{project.description}</p>
-                <a href={project.link} className="project-link">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   View Project →
                 </a>
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* ✅ Open More Projects in a new clean tab */}
+        <div className="more-projects-btn">
+          <a
+            href="/more-projects"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <button>View More Projects</button>
+          </a>
         </div>
       </div>
     </section>

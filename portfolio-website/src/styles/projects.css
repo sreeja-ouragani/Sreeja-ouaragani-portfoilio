@@ -1,107 +1,177 @@
+/* === Main Section Styling === */
 .projects {
-    background-color: #f5f7fa;
-    color: #0a192f;
-    text-align: center;
-    padding: 80px 0;
+  background-color: #f5f7fa;
+  color: #0a192f;
+  padding: 80px 20px;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
 }
 
 .projects .section-title {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    position: relative;
-    display: inline-block;
-    padding-bottom: 5px;
-    border-bottom: 2px solid #00bcd4;
-    animation: fadeInUp 0.6s ease-out;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  border-bottom: 3px solid #00bcd4;
+  display: inline-block;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: fadeInUp 0.6s ease-in-out;
 }
 
+/* === Grid Container === */
 .projects-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding-top: 20px;
 }
 
-.project-card {
-    width: 300px;
-    height: 200px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
+/* === Card Styling === */
+.project-video-card {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 350px;
+  max-width: 95vw;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
-.project-card:hover {
-    transform: scale(1.05);
+.project-video-card:hover {
+  transform: translateY(-5px) scale(1.015);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
 }
 
-.project-overlay {
-    background: rgba(10, 25, 47, 0.85);
-    color: white;
-    opacity: 0;
-    position: absolute;
-    inset: 0;
-    display: flex;
+/* === Video Player === */
+.video-wrapper {
+  background-color: #000;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+}
+
+.video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+}
+
+/* === Video Placeholder === */
+.video-placeholder {
+  background-color: #e0f4f7;
+  color: #0077b6;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 30px;
+}
+
+/* === Project Text === */
+.project-info {
+  padding: 18px 22px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-info h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0a192f;
+  margin: 0;
+}
+
+.project-info p {
+  font-size: 1rem;
+  color: #333;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.project-info a {
+  margin-top: 8px;
+  color: #00bcd4;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  width: fit-content;
+}
+
+.project-info a:hover {
+  color: #0097a7;
+  text-decoration: underline;
+}
+
+/* === More Projects Button === */
+.more-projects-btn {
+  margin-top: 50px;
+}
+
+.more-projects-btn button {
+  background-color: #00bcd4;
+  color: white;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.more-projects-btn button:hover {
+  background-color: #0097a7;
+}
+
+/* === Media Queries === */
+@media (max-width: 768px) {
+  .projects {
+    padding: 60px 15px;
+  }
+
+  .project-video-card {
+    width: 100%;
+  }
+
+  .projects-grid {
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
-    text-align: center;
-    transition: opacity 0.3s ease-in-out;
+  }
+
+  .project-info {
+    padding: 16px;
+  }
+
+  .projects .section-title {
+    font-size: 1.6rem;
+  }
+
+  .project-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .project-info p {
+    font-size: 0.95rem;
+  }
 }
 
-.project-card:hover .project-overlay {
-    opacity: 1;
-}
-
-.project-overlay h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-}
-
-.project-overlay p {
-    font-size: 1rem;
-    margin-bottom: 10px;
-}
-
-.project-link {
-    color: #00bcd4;
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease-in-out;
-}
-
-.project-link:hover {
-    color: #03a9f4;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .projects-grid {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .project-card {
-        width: 90%;
-        height: 250px;
-    }
-}
-
-/* Animation */
+/* === Animation Keyframes === */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

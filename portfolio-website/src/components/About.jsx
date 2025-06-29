@@ -1,61 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/about.css";
-import myPhoto from "../assets/my-photo.png"; // Replace with actual image path
+import myPhoto from "../assets/my-photo.png";
 
 const About = () => {
   const [text, setText] = useState("");
   const [showImage, setShowImage] = useState(false);
-  const [expanded, setExpanded] = useState(false);
   const aboutRef = useRef(null);
   const intervalRef = useRef(null);
+  const hasAnimated = useRef(false); // ✅ Prevents rerunning on every scroll
 
   const aboutText =
     "I'm Sreeja, a Full-Stack Developer specializing in React, Next.js, Node.js, and AI/ML integration. I have experience in building scalable web applications and cloud-based solutions. With a strong foundation in AWS, I focus on crafting optimized backend systems while delivering seamless user experiences.";
-
-  const extraText =
-    "Beyond coding, I enjoy dancing and exploring new technologies. I'm a continuous learner who loves challenging myself with innovative projects that push the boundaries of AI and web development.";
-
-  const additionalDetails = (
-    <div className="additional-info">
-      <h3>Languages:</h3>
-      <p>Telugu, Hindi, English</p>
-
-      <h3>Education:</h3>
-      <p>
-        B.Tech in Computer Science and Engineering (AI & ML), Malla Reddy University — CGPA: 8.92 (Till 5th Sem)
-      </p>
-
-      <h3>Interests:</h3>
-      <p>AI & ML, Full-Stack Development, AWS Cloud, Competitive Programming</p>
-
-      <h3>Highlights:</h3>
-      <ul>
-        <li>📌 Full Stack Intern @ Unified Mentor (Dec 2024 – Jan 2025)</li>
-        <li>🏆 Participated in 5+ National Hackathons (AI, EdTech, Cybersecurity)</li>
-        <li>🎨 Poster Designing Runner-up | 🕺 Dance Winner</li>
-        <li>👩‍💼 Served as Class Representative</li>
-      </ul>
-
-      <h3>Tools & Platforms:</h3>
-      <p>Git, GitHub, Vercel, Postman, Figma, MongoDB Atlas, Google Colab</p>
-    </div>
-  );
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!window.location.hash.includes("#about")) {
-        setExpanded(false); // ✅ Auto-close on scroll to another section
-      }
-    };
-
-    window.addEventListener("hashchange", handleScroll);
-    return () => window.removeEventListener("hashchange", handleScroll);
-  }, []);
 
   const triggerAnimation = () => {
     setText("");
     setShowImage(false);
     let index = 0;
+    let currentText = "";
 
     clearInterval(intervalRef.current);
 
@@ -63,7 +24,8 @@ const About = () => {
       setShowImage(true);
       intervalRef.current = setInterval(() => {
         if (index < aboutText.length) {
-          setText((prevText) => prevText + aboutText.charAt(index));
+          currentText += aboutText.charAt(index);
+          setText(currentText);
           index++;
         } else {
           clearInterval(intervalRef.current);
@@ -73,9 +35,41 @@ const About = () => {
   };
 
   useEffect(() => {
+    // ✅ Trigger if hash is already present (direct visit or click)
     if (window.location.hash === "#about") {
       triggerAnimation();
+      hasAnimated.current = true;
     }
+
+    // ✅ Hash change handler
+    const handleHashChange = () => {
+      if (window.location.hash === "#about") {
+        triggerAnimation();
+        hasAnimated.current = true;
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+
+    // ✅ Observer to trigger animation on scroll into view
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          triggerAnimation();
+          hasAnimated.current = true;
+        }
+      },
+      {
+        threshold: 0.6, // Trigger when 60% of About section is visible
+      }
+    );
+
+    if (aboutRef.current) observer.observe(aboutRef.current);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+      clearInterval(intervalRef.current);
+      if (aboutRef.current) observer.unobserve(aboutRef.current);
+    };
   }, []);
 
   return (
@@ -83,29 +77,25 @@ const About = () => {
       <div className="container">
         <h2 className="section-title">About Me</h2>
 
-        {/* ✅ Profile Picture */}
+        {/* ✅ Profile Image */}
         <div className={`about-image ${showImage ? "fade-in" : ""}`}>
           <img src={myPhoto} alt="My Profile" loading="lazy" />
         </div>
 
-        {/* ✅ About Card */}
+        {/* ✅ Typewriter Text Card */}
         <div className="about-card">
           <p className="typewriter">{text}</p>
-          {expanded && (
-            <>
-              <p className="extra-text">{extraText}</p>
-              {additionalDetails}
-            </>
-          )}
         </div>
 
-        {/* ✅ "Know More" Button */}
-        <button
+        {/* ✅ Open About Detail in New Tab */}
+        <a
+          href="/about-detail"
           className="know-more-btn pulse"
-          onClick={() => setExpanded(!expanded)}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          {expanded ? "Show Less" : "Know More?"}
-        </button>
+          Know More?
+        </a>
       </div>
     </section>
   );

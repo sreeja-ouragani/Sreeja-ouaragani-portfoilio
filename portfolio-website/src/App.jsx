@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import AboutDetail from "./components/AboutDetail";
+import MoreProjects from "./components/MoreProjects"; // ✅ Correctly imported
 import NotFound from "./pages/NotFound";
 
 const App = () => {
-  // ✅ Global Dark Mode State
-  const [darkMode, setDarkMode] = useState(
-    () => localStorage.getItem("theme") === "dark"
-  );
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
 
   useEffect(() => {
     if (darkMode) {
@@ -21,11 +23,12 @@ const App = () => {
 
   return (
     <Router>
-      {/* ✅ Wrap everything inside a div with dark mode class */}
       <div className={darkMode ? "dark-theme" : ""}>
         <Header darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about-detail" element={<AboutDetail />} />
+          <Route path="/more-projects" element={<MoreProjects />} /> {/* ✅ Routed */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

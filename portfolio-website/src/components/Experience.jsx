@@ -1,9 +1,10 @@
 import React from "react";
 import "../styles/experience.css";
-import { Briefcase, MapPin, Clock } from "lucide-react";
+import { Briefcase, MapPin, Clock, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 
 const experiences = [
+  
   {
     company: "Zidio Development",
     role: "Data Science and Analytics Intern",
@@ -11,6 +12,7 @@ const experiences = [
     location: "Remote",
     description: "Data Science and Data Analytics",
     logo: "/logos/zidio-logo.png",
+    linkedin: "https://www.linkedin.com/in/ouragani-sreeja-860a31308/edit/forms/position/2645565484/?profileFormEntryPoint=PROFILE_SECTION",
   },
   {
     company: "Barola Technologies®",
@@ -19,6 +21,7 @@ const experiences = [
     location: "Remote",
     description: "Machine Learning",
     logo: "/logos/barola-logo.jpeg",
+    linkedin: "https://www.linkedin.com/in/ouragani-sreeja-860a31308/edit/forms/position/2640565627/?profileFormEntryPoint=PROFILE_SECTION",
   },
   {
     company: "Unified Mentor",
@@ -27,17 +30,17 @@ const experiences = [
     location: "Remote",
     description: "Full-Stack Web Development",
     logo: "/logos/unified-logo.jpg",
+    linkedin: "https://www.linkedin.com/in/ouragani-sreeja-860a31308/edit/forms/position/2640557848/?profileFormEntryPoint=PROFILE_SECTION",
   },
 ];
 
-// 🔁 Looping animation for continuous pulse effect
 const floatingVariant = {
   animate: {
-    y: [0, -8, 0], // Move up then back
+    y: [0, -8, 0],
     transition: {
       duration: 2,
       ease: "easeInOut",
-      repeat: Infinity, // Loop forever
+      repeat: Infinity,
     },
   },
 };
@@ -75,6 +78,11 @@ const Experience = () => {
                 </span>
               </div>
               <p className="exp-description">{exp.description}</p>
+              <div className="exp-links">
+                <a href={exp.linkedin} target="_blank" rel="noopener noreferrer">
+                  🔗 View on LinkedIn
+                </a>
+              </div>
             </motion.div>
           ))}
         </div>
