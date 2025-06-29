@@ -8,9 +8,10 @@ const AboutDetail = () => {
     <section className="about-detail-section">
       <div className="about-detail-container">
         {/* ✅ Back Button */}
-        <Link to="/" className="back-button">
-          ⬅ Back to Portfolio
-        </Link>
+        <Link to="/#about" className="back-button">
+  ⬅ Back to About Section
+</Link>
+
 
         {/* ✅ Left: Profile Image */}
         <div className="profile-image-wrapper">

@@ -19,6 +19,11 @@ const imageProjects = [
 
 const githubProjects = [
   {
+    title: "AI Interview Preparation Platform",
+    description: "An AI-powered web app for personalized interview readiness.",
+    link: "https://github.com/sreeja-ouragani/ai-interview-platform",
+  },
+  {
     title: "Number Plate Recognition",
     description: "Detects and reads vehicle license plates using OpenCV.",
     link: "https://github.com/sreeja-ouragani/number-plate",
@@ -72,7 +77,11 @@ const MoreProjects = () => {
               <div className="project-info">
                 <h4>{project.title}</h4>
                 <p>{project.description}</p>
-                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   View Project →
                 </a>
               </div>

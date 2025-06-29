@@ -44,7 +44,7 @@
 
 .project-video-card:hover {
   transform: translateY(-5px) scale(1.015);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
 }
 
 /* === Video Player === */
@@ -114,6 +114,7 @@
 /* === More Projects Button === */
 .more-projects-btn {
   margin-top: 50px;
+  text-align: center;
 }
 
 .more-projects-btn button {
@@ -125,14 +126,15 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .more-projects-btn button:hover {
   background-color: #0097a7;
+  transform: scale(1.05);
 }
 
-/* === Media Queries === */
+/* === Responsive Styles === */
 @media (max-width: 768px) {
   .projects {
     padding: 60px 15px;
@@ -140,19 +142,21 @@
 
   .project-video-card {
     width: 100%;
+    max-width: 100%;
   }
 
   .projects-grid {
     flex-direction: column;
     align-items: center;
-  }
-
-  .project-info {
-    padding: 16px;
+    gap: 20px;
   }
 
   .projects .section-title {
     font-size: 1.6rem;
+  }
+
+  .project-info {
+    padding: 16px;
   }
 
   .project-info h3 {
@@ -160,6 +164,17 @@
   }
 
   .project-info p {
+    font-size: 0.95rem;
+  }
+
+  .video-placeholder {
+    font-size: 0.95rem;
+    padding: 20px;
+  }
+
+  .more-projects-btn button {
+    width: 90%;
+    padding: 12px;
     font-size: 0.95rem;
   }
 }

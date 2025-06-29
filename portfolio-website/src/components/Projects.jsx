@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import "../styles/projects.css"; // removed Link import since we're not using it
+import "../styles/projects.css"; // No Link used, so removed it
 
 const videoProjects = [
   {
@@ -102,6 +102,7 @@ const Projects = () => {
               className="project-video-card"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.03 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
             >
               <div className="video-wrapper">
@@ -138,13 +139,9 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* ✅ Open More Projects in a new clean tab */}
+        {/* 🔗 View More Projects Button */}
         <div className="more-projects-btn">
-          <a
-            href="/more-projects"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="/more-projects" target="_blank" rel="noopener noreferrer">
             <button>View More Projects</button>
           </a>
         </div>
